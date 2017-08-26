@@ -1,6 +1,6 @@
 # view
 
-> app h5
+> 一个vue 单页
 
 ## Build Setup
 
