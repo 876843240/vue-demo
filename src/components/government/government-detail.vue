@@ -1,7 +1,7 @@
 <template>
 	<article class="government-detail">
 		<h1>{{title}}</h1>
-		<p><em>{{source}}</em><time datatime="{{publishDate}}">{{publishDate}}</time></p>
+		<p><em>{{source}}</em><time :datatime="publishDate">{{publishDate}}</time></p>
 		<div class="content" v-html="context"></div>
 	</article>
 </template>
