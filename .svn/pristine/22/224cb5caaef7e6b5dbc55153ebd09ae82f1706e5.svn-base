@@ -1,0 +1,69 @@
+<template>
+  <div class="finish">
+      <order-state>
+         <template slot="title">已完成</template>
+      </order-state>
+      <current-state :state="4"></current-state>
+      <service 
+      :hasRealPrice="hasRealPrice"
+      :hasOrderPrice="hasOrderPrice" 
+      :hasdoorServicePrice="hasdoorServicePrice"
+      :hasServicePrice="hasServicePrice"></service>
+      <master-info :showArriveTime="showArriveTime" :showMasterPhone="showMasterPhone"></master-info>
+      <user-info></user-info>
+      <trouble v-if="cluster!='common'"></trouble>
+      <order-info :state="state" :hasPayInfo="hasPayInfo"></order-info>
+      <handle-btn  :haslinkbtn="true" :orderStatus="orderStatus" :btnstate="btnstate"></handle-btn>
+  </div>
+</template>
+<script>
+import service from './components/service'
+import trouble from './components/trouble'
+import orderState from './components/order-state'
+import handleBtn from './components/handle-btn'
+import userInfo from './components/user-info'
+import masterInfo from './components/master-info'
+import orderInfo from './components/order-info'
+import currentState from './components/current-state'
+export default {
+  name: 'finish',
+   props:{
+    isPre:{
+      type:Number,
+      default:0
+    },
+    orderStatus:Number
+   },
+  data () {
+    return {
+      state:5,
+      //是否已经评价过
+      btnstate:'evaluate',
+      hasRealPrice:true,  //是否显示实付金额这一项
+      hasOrderPrice:true,  //是否有订单总价这一项
+      hasdoorServicePrice:false,//显示上门服务费这一项
+      hasServicePrice:true, //显示服务费这一项
+      noorderprice:false,
+      showArriveTime:false, //是否显示到达时间
+      showMasterPhone:false,
+      hasPayInfo:true, //是否支付信息
+      cluster:this.$store.state.stateData.cluster
+    }
+  },
+  components:{
+    service,
+    handleBtn,
+    userInfo,
+    orderInfo,
+    currentState,
+    masterInfo,
+    orderState,
+    trouble
+  },
+  created(){
+    if(this.isPre==1){
+      this.hasdoorServicePrice=true;
+    }
+  }
+}
+</script>

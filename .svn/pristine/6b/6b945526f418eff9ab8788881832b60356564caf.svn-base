@@ -1,0 +1,38 @@
+<template>
+	<article class="evaluate">
+		<order-info v-if="!hasEvaluate"></order-info>
+		<evaluate-part :hasevaluate="hasEvaluate">
+			<template v-if="!hasEvaluate">
+				<p>匿名评价师傅</p>
+			</template>
+			<template v-else>
+				 <p>感谢您的评价</p>
+			</template>
+		</evaluate-part>
+	</article>
+</template>
+<script>
+import orderInfo from './components/order-info'
+import evaluatePart from './components/evaluate-part'   
+export default{
+	name:'evaluate',
+	beforeRouteEnter(to,from,next){
+          document.title="评价师傅";
+          next();
+    },
+	data(){
+	  return{
+       hasEvaluate:false
+	  }
+	},
+	components:{
+		evaluatePart,
+		orderInfo
+	},
+	created(){
+		/*if(this.hasEvaluate==true){
+			document.body.style.backgroundColor="#fff";
+		}*/
+	}
+}
+</script>

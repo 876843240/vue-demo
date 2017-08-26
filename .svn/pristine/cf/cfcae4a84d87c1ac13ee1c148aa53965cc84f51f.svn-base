@@ -1,0 +1,8 @@
+<template>
+	<div class="price-info"></div>
+</template>
+<script>
+	export default{
+		name:'price-info'
+	}
+</script>

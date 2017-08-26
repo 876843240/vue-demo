@@ -1,0 +1,64 @@
+<template>
+  <article class="closed">
+     <div class="order-state">
+        <h1>交易关闭</h1>
+        <span>原因:
+         <template>
+            <em v-if="reasonState==1">服务终止</em>
+            <em v-else-if="reasonState==2">取消订单</em>
+            <em v-else-if="reasonState==3">服务退款</em>
+         </template>
+        </span>
+     </div>
+     <service :state="5" :onlyshowvisitpice="true"></service>
+     <user-info></user-info>
+     <order-info></order-info>
+     <handle-btn :haslinkbtn="haslinkbtn" :btnstate="btnstate"></handle-btn>
+  </article>
+</template>
+<script>
+import service from './components/service'
+import handleBtn from './components/handle-btn'
+import userInfo from './components/user-info'
+import orderInfo from './components/order-info'
+export default {
+  name: 'closed',
+  data () {
+    return {
+      reasonState:3, //当前关闭订单的原因状态
+      btnstate:'',
+      haslinkbtn:false  //是否有右边的退款状态按钮
+    }
+  },
+  components:{
+    service,
+    handleBtn,
+    userInfo,
+    orderInfo
+  },
+  created(){
+    if(this.reasonState==3){
+      this.haslinkbtn=true;
+      this.btnstate='refund';
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+   .order-state{
+     line-height: 2.86rem;
+     margin:0 1rem;
+     h1{
+      font-size: 1.07rem;
+      color:#ff5a5a;
+      display: inline-block;
+      margin-right: 2rem;
+     }
+     span{
+      font-size: 0.93rem;
+      color:#666;
+     }
+   }
+</style>

@@ -1,0 +1,43 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+import axios from 'axios'
+Vue.config.productionTip = false;
+axios.defaults={
+	timeout:8000, //超时时间
+	headers:{
+     deviceId:'',   //客户端deviceid
+     Authorization:'', //客户端token
+	}
+}
+var storageHanle={
+	storage :window.localStorage,
+	getStorage(name) {
+    return storage.getItem(name) || '';
+    },
+    setStorage(name,val){
+     this.storage.setItem(name,val);
+    }
+}
+router.beforeEach(function(to,from,next){
+  let query=to.query;
+  let deviceId=query.deviceId||'1231234';
+  let Authorization=query.Authorization||'123dfdsf';
+  if(typeof query.deviceId=='string'){
+     axios.defaults.deviceId=deviceId;
+  }
+  if(typeof query.Authorization=='string'){
+  	axios.defaults.Authorization=Authorization;
+  }
+  next();
+})
+Vue.prototype.axios=axios;
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: { App }
+})

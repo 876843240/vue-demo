@@ -1,0 +1,46 @@
+<template>
+  <div class="finish">
+      <div class="curr-state">
+         <ul>
+           <li>
+             <div class="has-arrow"><i></i><span>成功下单</span></div>
+           </li>
+           <li>
+             <div class="has-arrow"><i></i><span>服务中</span></div>
+           </li>
+           <li>
+             <div class="has-arrow"><i></i><span>待付款</span></div>
+           </li>
+           <li>
+             <div class="has-arrow"><i></i><span>服务完成</span></div>
+           </li>
+         </ul>
+      </div>
+      <price-info></price-info>
+      <div class="user-info"></div>
+      <div class="order-info"></div>
+      <handle-btn></handle-btn>
+  </div>
+</template>
+
+<script>
+import priceInfo from './components/priceInfo'
+import handleBtn from './components/handleBtn'
+export default {
+  name: 'finish',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  components:{
+    priceInfo,
+    handleBtn
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+
+</style>

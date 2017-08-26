@@ -1,0 +1,48 @@
+<template>
+    <div class="myapp">
+      <layer :layerTip="layerTip" v-if="hasLayer"></layer>
+    	<router-view></router-view>
+    </div>
+</template>
+<script>
+import router from '../../router'
+import layer from './components/layer'
+export default {
+  name:'myapp',
+    beforeRouteEnter(to,from,next){
+        document.title="订单详情";
+        next();
+    },
+    data(){
+       return {
+         layerTip:'',
+         hasLayer:false
+       }
+    },
+    components:{
+     layer
+    },
+    created(){
+        let query=this.$route.query;
+        let pageCode=query.pageCode||'RepairClusters';
+        let orderId=query.orderId||79;
+        switch(pageCode){
+        case 'NannyClusters':
+         router.push({path:'/orderdetail/babysitter',query:{orderId:orderId}});
+        break;
+        case 'RepairClusters':
+         router.push({path:'/orderdetail/repair',query:{orderId:orderId}});
+        break;
+        case 'WashClusters':
+         router.push({path:'/orderdetail/wash',query:{orderId:orderId}});
+        break;
+        case 'CommonClusters':
+         router.push({path:'/orderdetail/common',query:{orderId:orderId}});
+        break;
+      }
+    }
+}
+</script>
+<style>
+	
+</style>

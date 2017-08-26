@@ -1,0 +1,17 @@
+<template>
+    <div class="myapp">
+    	<router-view></router-view>
+    </div>
+</template>
+<script>
+	export default {
+	  name:'myapp',
+      beforeRouteEnter(to,from,next){
+          document.title="订单详情";
+          next();
+      }
+	}
+</script>
+<style>
+	
+</style>

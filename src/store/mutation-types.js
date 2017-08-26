@@ -1,0 +1,6 @@
+export const ADD_ORDER_DETAIL='ADD_ORDER_DETAIL'
+export const ADD_SERVICE_DETAIL='ADD_SERVICE_DETAIL'
+export const ADD_LABELS='ADD_LABELS'
+export const ADD_IMAGE='ADD_IMAGE'
+export const SUCCESS='SUCCESS'
+export const ERROR='ERROR'

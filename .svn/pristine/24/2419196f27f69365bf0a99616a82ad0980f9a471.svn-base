@@ -1,0 +1,86 @@
+<template>
+    <div class="myapp">
+    	<router-view></router-view>
+    </div>
+</template>
+<script>
+import router from '../../router'
+	export default {
+	  name:'myapp',
+      beforeRouteEnter(to,from,next){
+          document.title="订单详情";
+          next();
+      },
+      data(){
+        return {
+
+        }
+      },
+      beforeCreate(){
+        let query=this.$route.query;
+        let orderId=query.orderId||'4';
+        let orderStatus=query.orderStatus||10;
+        let pageCode=query.pageCode||'CommonClusters';
+        if(pageCode=='NannyClusters'){
+          router.push({path:'/orderdetail/babysitter',query:{orderId:orderId}});
+        }else{
+          Object.assign(this,{aSDFSDFSF:123,b:456})
+         let instance=this.axios.create({
+            baseURL:'http://10.1.193.126:8001/api/v1'
+         });
+         instance({
+           method:'get',
+           url:'/'+pageCode+'/ServiceOrderDetail?orderId='+orderId
+         })
+        .then((res)=>{
+          let status=res.status;
+          let data=res.data;
+          if(status==200){
+            Object.assign(this,data);
+          }
+        })
+        .then(()=>{
+          switch(orderStatus){
+          /*11是等待支付预约金*/
+          case 11:
+          router.push({path:'/orderdetail/waitprepay' , query:{orderId:orderId,pageCode:pageCode}});
+          break;
+          /*12是订单受理中*/
+          case 12:
+          router.push({path:'/orderdetail/inacceptance' , query:{orderId:orderId,pageCode:pageCode}});
+          break;
+          /*13是待服务*/
+          case 13:
+          router.push({path:'/orderdetail/waitservice' , query:{orderId:orderId,pageCode:pageCode}});
+          break;
+          /*14是服务中*/
+          case 14:
+           router.push({path:'/orderdetail/inservice' , query:{orderId:orderId,pageCode:pageCode}});
+           break;
+         /*17是服务完成待付款状态，*/
+         case 17:
+           router.push({path:'/orderdetail/waitpay',query:{orderId,orderId,pageCode:pageCode}});
+          break;
+         /*18是服务完成已付款状态*/
+         case 18:
+           router.push({path:'/orderdetail/finish',query:{orderId,orderId,pageCode:pageCode}});
+          break;
+          /*19是退款审核中*/
+         case 19:
+           router.push({path:'/orderdetail/reviewrefund',query:{orderId,orderId,pageCode:pageCode}});
+           break;
+          /*39是订单关闭*/
+          case 39:
+          router.push({path:'/orderdetail/closed' , query:{orderId:orderId,pageCode:pageCode}});
+          break;
+        }
+        })
+        .catch((err)=>{console.log(err.response.data.message)});
+        
+      }
+    } 
+	}
+</script>
+<style>
+	
+</style>

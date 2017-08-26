@@ -1,0 +1,40 @@
+@import "./util.scss";
+$emphasisText:#e24c00;
+h2,.middle-size{
+	display: block;
+	font-size: 1.14rem;
+	color:#333;
+	&.title{
+		margin-bottom: 1.21rem;
+		font-size: 1.29rem;
+	}
+}
+p,h3,h4,h5,h6,span{
+	font-size: 1.07rem;
+	color:#666;
+}
+.price-text{
+	color:$emphasisText;
+}
+.has-color-btn{
+  background-color: $emphasisText;
+  color:#fff;
+}
+.center-part{
+	padding:0.79rem 1rem;
+	overflow: hidden;
+}
+.loading:before{
+      content:"";
+      display: block;
+      position: absolute;
+      left:50%;
+      top:50%;
+      width:1.5rem;
+      height:1.5rem;
+      z-index: 2;
+      transform:translate(-50%,-50%);
+      -webkit-transform:translate(-50%,-50%);
+      background-image:url(../images/loading.gif);
+      background-size: cover;
+   }

@@ -1,0 +1,45 @@
+<template>
+  <div class="finish">
+      <order-state>
+         <template slot="title">已完成</template>
+         <template slot="descript">完成已经1天了</template>
+      </order-state>
+      <current-state :state="4"></current-state>
+      <service :state="4" :noorderprice="noorderprice"></service>
+      <master-info :showarrivetime="false"></master-info>
+      <user-info></user-info>
+      <trouble></trouble>
+      <order-info :state="4"></order-info>
+      <handle-btn :haslinkbtn="true" :btnstate="btnstate"></handle-btn>
+  </div>
+</template>
+<script>
+import service from './components/service'
+import trouble from './components/trouble'
+import orderState from './components/order-state'
+import handleBtn from './components/handle-btn'
+import userInfo from './components/user-info'
+import masterInfo from './components/master-info'
+import orderInfo from './components/order-info'
+import currentState from './components/current-state'
+export default {
+  name: 'finish',
+  data () {
+    return {
+      //是否已经评价过
+      btnstate:'evaluate',
+      noorderprice:false
+    }
+  },
+  components:{
+    service,
+    handleBtn,
+    userInfo,
+    orderInfo,
+    currentState,
+    masterInfo,
+    orderState,
+    trouble
+  }
+}
+</script>

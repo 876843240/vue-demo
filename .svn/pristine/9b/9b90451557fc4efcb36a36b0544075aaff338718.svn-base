@@ -1,0 +1,51 @@
+<template>
+  <div class="finish">
+      <order-state>
+         <template slot="title">已完成</template>
+      </order-state>
+      <current-state :state="4"></current-state>
+      <service :state="4" :noorderprice="noorderprice"></service>
+      <master-info :showArriveTime="showArriveTime" :showMasterPhone="showMasterPhone"></master-info>
+      <user-info></user-info>
+      <trouble></trouble>
+      <order-info :state="state" :hasPayInfo="hasPayInfo"></order-info>
+      <handle-btn :state="state" :haslinkbtn="true" :btnstate="btnstate"></handle-btn>
+  </div>
+</template>
+<script>
+import service from './components/service'
+import trouble from './components/trouble'
+import orderState from './components/order-state'
+import handleBtn from './components/handle-btn'
+import userInfo from './components/user-info'
+import masterInfo from './components/master-info'
+import orderInfo from './components/order-info'
+import currentState from './components/current-state'
+export default {
+  name: 'finish',
+  data () {
+    return {
+      state:5,
+      //是否已经评价过
+      btnstate:'evaluate',
+      noorderprice:false,
+      showArriveTime:false, //是否显示到达时间
+      showMasterPhone:false,
+      hasPayInfo:true //是否支付信息
+    }
+  },
+  components:{
+    service,
+    handleBtn,
+    userInfo,
+    orderInfo,
+    currentState,
+    masterInfo,
+    orderState,
+    trouble
+  },
+  created(){
+    console.log(this.$parent);
+  }
+}
+</script>

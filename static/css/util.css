@@ -1,0 +1,35 @@
+@charset "UTF-8";
+/* $icon-spacing:10px;
+$icon-clean-up: true;
+$icon-sprite-dimensions: true;
+@import "compass/utilities/sprites";
+@import "./images/icon.png";
+@include all-icon-sprites; */
+/* 径向渐变 */
+@media screen and (max-width: 320px) {
+  /* line 15, ../scss/util.scss */
+  html {
+    font-size: 12px;
+  }
+}
+@media screen and (min-width: 321px) {
+  /* line 21, ../scss/util.scss */
+  html {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 415px) and (max-width: 768px) {
+  /* line 27, ../scss/util.scss */
+  html {
+    font-size: 16px;
+  }
+}
+/* mixin start */
+/* isOneDirect:是否是同一个方向 */
+/* 块级布局 */
+/* 根据个数来返回元素的宽度*/
+/* mixin end  */
+/* endtend start */
+/* 设置flex的基础的参数 */
+/* 设置各种条，头部，尾部的颜色 */
+/* extend end */

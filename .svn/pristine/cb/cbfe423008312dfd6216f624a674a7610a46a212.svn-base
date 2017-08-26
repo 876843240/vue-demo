@@ -1,0 +1,349 @@
+@charset "utf-8";
+@import 'compass/css3';
+@import 'compass/support';
+/* $icon-spacing:10px;
+$icon-clean-up: true;
+$icon-sprite-dimensions: true;
+@import "compass/utilities/sprites";
+@import "./images/icon.png";
+@include all-icon-sprites; */
+$baseURI:"../images/";
+
+/* 径向渐变 */
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width:415px) and (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+$headerHeight:3rem; //header height
+$siderHeight:3rem; //header height
+$inputHeight:2rem; //输入框的高度
+$mainColor:#0a1e27;
+$margin:1rem;
+$padding:1.2rem;
+$baseBorder:0.4rem;
+$largeFont:1.4rem;
+$bigFont:1.2rem;
+$middleFont:1rem;
+$smallFont:0.8rem;
+$borderColor:#e6e6e6;
+$bgColor:#f5f5f5; //背景颜色
+
+/* mixin start */
+
+@mixin linear($color,
+$angle) {
+  background-color: $color;
+  background: linear-gradient($angle, $color 0, hsla(0, 0, 100%, 0.9) 50%, $color 100%);
+}
+
+@mixin rightBorder($height,
+$top,
+$color:#ddd) {
+  position: relative;
+  &:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: $height;
+    width: 1px;
+    right: 0;
+    top: $top;
+    background-color: $color;
+    @include transform(scaleX(0.5));
+  }
+}
+
+//两个元素一行内显示
+@mixin inlineBlock($float) {
+  display: inline-block;
+  float: $float;
+}
+
+@mixin rectLogo($width,
+$height) {
+  width: $width;
+  height: $height;
+  overflow: hidden;
+  @include border-radius(50%);
+}
+
+@mixin overflow($width) {
+  max-width: $width;
+  width: $width;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@mixin opb($color) {
+  &:before,
+  &:after {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: $color;
+    @include transform(scaleY(0.5));
+  }
+}
+
+@mixin opbt($color) {
+  @include opb($color);
+  &:before {
+    content: "";
+  }
+}
+
+@mixin opbb($color) {
+  @include opb($color);
+  &:after {
+    content: "";
+  }
+}
+
+
+@mixin positionCenter($width, $height) {
+  width: $width;
+  height: $height;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  @include transform(translate(-50%, -50%));
+}
+
+@mixin lineHeight($height) {
+  height: $height;
+  line-height: $height;
+}
+
+@mixin setBgImg($url) {
+  background: url($baseURI+$url) no-repeat center / cover;
+  vertical-align: middle;
+}
+
+//create a circle
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  overflow: hidden;
+  @include border-radius(50%);
+}
+
+@function getCurrSize($boxLength,
+$allWidth,
+$boxWidth) {
+  @return ($allWidth - $boxWidth*$boxLength)/($boxLength - 1);
+}
+
+//
+@mixin setMargin($left,
+$right) {
+  margin-left: $left;
+  margin-right: $right;
+}
+
+//解决多个li左右都不margin，只在中间margin效果
+//支持三个元素
+@mixin threecurrentMargin($allWidth,
+$boxWidth) {
+  $margin: getCurrSize(3, $allWidth, $boxWidth);
+  $gapMargin: $margin/2;
+  @include box-sizing(border-box);
+  &:nth-child(3n+2) {
+    @include setMargin($margin,
+    $margin);
+  }
+}
+
+@mixin blockcenter($margin) {
+  display: block;
+  margin: $margin auto;
+}
+/* isOneDirect:是否是同一个方向 */
+@mixin onePx($pos,$isOneDirect:false,
+$color:$borderColor) {
+  @if($isOneDirect!=true){
+    @extend %onepx;
+    @if($pos=='left') {
+    &:before {
+      content: "";
+      left: 0;
+      background-color: $color;
+    }
+  }
+  @else if($pos=='right') {
+    &:before {
+      content: "";
+      right: 0;
+      background-color: $color;
+    }
+  }
+  @else if($pos=='top') {
+    &:after {
+      content: "";
+      top: 0;
+      background-color: $color;
+    }
+  }
+  @else if($pos=='bottom') {
+    &:after {
+      content: "";
+      bottom: 0;
+      background-color: $color;
+    }
+  }
+}@else{
+    position: relative;
+  &:before,
+  &:after {
+    position: absolute;
+  }
+    @if($pos=='left') {
+    &:before {
+      content: "";
+      left: 0;
+      background-color: $color;
+      width: 1px;
+     top: 0;
+     height: 100%;
+     @include transform(scaleX(0.5));
+    }
+  }
+  @else if($pos=='right') {
+    &:after {
+      content: "";
+      right: 0;
+      background-color: $color;
+      width: 1px;
+      top: 0;
+      height: 100%;
+     @include transform(scaleX(0.5));
+    }
+  }
+  @else if($pos=='top') {
+    &:before {
+      content: "";
+      top: 0;
+      background-color: $color;
+      width: 100%;
+     left: 0;
+     height: 1px;
+     @include transform(scaleY(0.5));
+    }
+  }
+  @else if($pos=='bottom') {
+    &:after {
+      content: "";
+      bottom: 0;
+      background-color: $color;
+      width: 100%;
+      left: 0;
+      height: 1px;
+      @include transform(scaleY(0.5));
+    }
+  }
+  }
+}
+
+
+/* 块级布局 */
+
+@mixin block($bgcolor:#fff) {
+  background-color: $bgcolor;
+  display: block;
+  width: 100%;
+  margin-bottom: 0.7rem;
+  @include onePx(bottom,true);
+  @include onePx(top,true);
+  &.no-top-border:before{
+    content:none;
+  }
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+
+/* 根据个数来返回元素的宽度*/
+
+@mixin setMenuList($size) {
+  width: (100/$size)+'%';
+}
+
+
+/* mixin end  */
+
+
+/* endtend start */
+
+%onepx {
+  position: relative;
+  &:before,
+  &:after {
+    position: absolute;
+  }
+  &:before {
+    width: 1px;
+    top: 0;
+    height: 100%;
+    @include transform(scaleX(0.5));
+  }
+  &:after {
+    width: 100%;
+    left: 0;
+    height: 1px;
+    @include transform(scaleY(0.5));
+  }
+}
+
+%mt {
+  background: url(../images/fontbg.png) no-repeat;
+  background-size: 100% 40px;
+  background-position: 10% center;
+}
+
+%smallBorderRadius {
+  @include border-radius($baseBorder);
+}
+
+//和父元素宽高一样的按钮
+%fullButton {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* 设置flex的基础的参数 */
+
+%flexBase {
+  @include flexbox((display: flex, align-items:center, justify-content:middle, flex-wrap:wrap));
+}
+
+
+/* 设置各种条，头部，尾部的颜色 */
+
+%barColor {
+  background-color: #fff;
+}
+
+
+/* extend end */

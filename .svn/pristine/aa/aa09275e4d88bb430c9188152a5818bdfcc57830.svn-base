@@ -1,0 +1,60 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import orderdetail from '@/components/orderdetail/orderdetail'
+import finish from '@/components/orderdetail/finish'
+import nomoney from '@/components/orderdetail/no-money'
+import closed from '@/components/orderdetail/closed'
+import noordermoney from '@/components/orderdetail/no-order-money'
+import hasordermoney from '@/components/orderdetail/has-order-money'
+import evaluate from '@/components/evaluate/evaluate'
+import repair from '@/components/repair/repair'
+
+Vue.use(Router)
+
+export default new Router({
+  mode: 'history',
+  routes: [{
+      path: '/',
+      redirect: '/orderdetail/finish'
+    }, {
+      path: '/orderdetail',
+      name: 'orderdetail',
+      component: orderdetail,
+      children: [
+        /*已完成订单路由*/
+        {
+          path: 'finish',
+          component: finish
+        },
+        /*已经关闭订单路由*/
+        {
+          path: 'closed',
+          component: closed
+        },
+        /*进行中路由*/
+        {
+          path: 'nomoney',
+          component: nomoney
+        },
+        /*未支付预约金*/
+        {
+          path: 'noordermoney',
+          component: noordermoney
+        },
+        /*已支付预约金页面*/
+        {
+          path: 'hasordermoney',
+          component: hasordermoney
+        }
+      ]
+    },
+    {
+      path: '/evaluate',
+      component: evaluate
+    },
+    {
+      path: '/repair',
+      component: repair
+    }
+  ]
+})
